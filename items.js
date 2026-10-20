@@ -1,0 +1,59 @@
+// Dit bestand wordt automatisch gemaakt door "site-bijwerken.bat".
+// Niet met de hand aanpassen: verander de mappen in "items" en draai het opnieuw.
+
+window.ITEMS = [
+  {
+    name: "Businesses \u0026 Hobbies (EP18)",
+    banner: "items/Businesses \u0026 Hobbies (EP18)/banner.png",
+    file: "",
+    link: "https://roster-numbers-passport-notify.trycloudflare.com/d/7iMDMWEG_13UcCb5H4lF7U-j",
+    description: "",
+    added: "2026-10-20",
+    size: "",
+  },
+  {
+    name: "Cottage Living (EP11)",
+    banner: "items/Cottage Living (EP11)/banner.png",
+    file: "",
+    link: "https://roster-numbers-passport-notify.trycloudflare.com/d/p6QT2aj2mxbvwWGz9U8nfgat",
+    description: "",
+    added: "2026-10-20",
+    size: "",
+  },
+  {
+    name: "discover university (EP08)",
+    banner: "items/discover university (EP08)/banner.png",
+    file: "",
+    link: "https://roster-numbers-passport-notify.trycloudflare.com/d/7iMDMWEG_13UcCb5H4lF7U-j",
+    description: "",
+    added: "2026-10-20",
+    size: "",
+  },
+  {
+    name: "Get Together (EP02)",
+    banner: "items/Get Together (EP02)/banner.png",
+    file: "",
+    link: "https://roster-numbers-passport-notify.trycloudflare.com/d/GlLsQwpW5_tIRERGKYocmi4j",
+    description: "",
+    added: "2026-10-20",
+    size: "",
+  },
+  {
+    name: "Royalty \u0026 Legacy (EP21)",
+    banner: "items/Royalty \u0026 Legacy (EP21)/banner.png",
+    file: "",
+    link: "https://roster-numbers-passport-notify.trycloudflare.com/d/cms1XbkTE_VNNmp4g7apPh7n",
+    description: "",
+    added: "2026-10-20",
+    size: "",
+  },
+  {
+    name: "Werewolves (GP12)",
+    banner: "items/Werewolves (GP12)/banner.png",
+    file: "",
+    link: "https://roster-numbers-passport-notify.trycloudflare.com/d/pOMqdHyuLP8qB4DgyLHYXkMc",
+    description: "Werewolves (GP12)",
+    added: "2026-10-20",
+    size: "",
+  },
+];

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hasse Tools</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧸</text></svg>">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="sparkles" aria-hidden="true">✦ ✧ ✦ ✧ ✦</div>
+
+  <header>
+    <div class="logo" aria-hidden="true">🧸</div>
+    <h1>Hasse Tools</h1>
+    <p class="tagline">
+      
+    </p>
+  </header>
+
+  <main>
+    <input id="search" type="search" placeholder="🔍 zoek iets…" autocomplete="off">
+    <div id="grid" class="grid"></div>
+    <p id="empty" class="empty" hidden>hier staat nog niks… kom snel terug! 🌱</p>
+  </main>
+
+  <footer>677 &amp; veilig</footer>
+
+  <script src="items.js"></script>
+  <script>
+    const grid = document.getElementById("grid");
+    const empty = document.getElementById("empty");
+    const search = document.getElementById("search");
+    const colors = ["pink", "mint", "sky", "lemon", "lilac", "peach"];
+
+    function escapeHtml(s) {
+      return String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    }
+
+    // Encode each path segment so folder names with spaces, # or ? still work.
+    function url(path) {
+      return String(path ?? "").split("/").map(encodeURIComponent).join("/");
+    }
+
+    // Only allow real web links, so a typo can't turn into a javascript: link.
+    function webLink(link) {
+      try {
+        const u = new URL(link);
+        return u.protocol === "http:" || u.protocol === "https:" ? u : null;
+      } catch { return null; }
+    }
+
+    const typeIcons = [
+      [["zip", "rar", "7z", "tar", "gz"], "📦"],
+      [["exe", "msi", "apk", "dmg", "jar", "bat"], "💿"],
+      [["mp3", "wav", "ogg", "flac", "m4a"], "🎵"],
+      [["mp4", "mov", "mkv", "avi", "webm"], "🎬"],
+      [["png", "jpg", "jpeg", "gif", "webp", "bmp", "svg", "heic"], "🖼️"],
+      [["pdf", "doc", "docx", "odt", "epub"], "📚"],
+      [["txt", "md", "rtf"], "📝"],
+      [["ppt", "pptx", "xls", "xlsx", "csv"], "📊"],
+      [["ttf", "otf", "woff", "woff2"], "🔤"],
+      [["mcworld", "mcpack", "mcaddon", "sb3", "nds", "gba", "iso"], "🎮"],
+    ];
+
+    function extension(file) {
+      const m = /\.([^./]+)$/.exec(file || "");
+      return m ? m[1].toLowerCase() : "";
+    }
+
+    function cover(it, link) {
+      if (it.banner) return `<img class="banner" src="${url(it.banner)}" alt="" loading="lazy">`;
+      if (link) return `<div class="banner placeholder"><span>🌐</span><small>${escapeHtml(link.hostname.replace(/^www\./, ""))}</small></div>`;
+      const ext = extension(it.file);
+      const icon = (typeIcons.find(([exts]) => exts.includes(ext)) || [null, "🎁"])[1];
+      return `<div class="banner placeholder"><span>${icon}</span>${ext ? `<small>.${escapeHtml(ext)}</small>` : ""}</div>`;
+    }
+
+    function card(it, i) {
+      const link = webLink(it.link);
+      const button = link
+        ? `<a class="btn" href="${escapeHtml(link.href)}" target="_blank" rel="noopener">🔗 naar de download</a>`
+        : `<a class="btn" href="${url(it.file)}" download>⬇ downloaden</a>`;
+      return `
+        <article class="card ${colors[i % colors.length]}">
+          ${cover(it, link)}
+          <div class="body">
+            <h2>${escapeHtml(it.name)}</h2>
+            ${it.description ? `<p>${escapeHtml(it.description)}</p>` : ""}
+            <div class="meta">
+              ${it.added ? `<span>📅 ${escapeHtml(new Date(it.added).toLocaleDateString("nl-NL", { day: "numeric", month: "short", year: "numeric" }))}</span>` : ""}
+              ${link ? `<span>🌐 ${escapeHtml(link.hostname.replace(/^www\./, ""))}</span>` : ""}
+              ${it.size ? `<span>📦 ${escapeHtml(it.size)}</span>` : ""}
+            </div>
+            ${button}
+          </div>
+        </article>`;
+    }
+
+    function render(filter = "") {
+      const q = filter.trim().toLowerCase();
+      const items = (window.ITEMS || []).filter(it =>
+        !q || `${it.name} ${it.description}`.toLowerCase().includes(q));
+
+      grid.innerHTML = items.map(card).join("");
+
+      empty.hidden = items.length > 0;
+    }
+
+    search.addEventListener("input", e => render(e.target.value));
+    render();
+  </script>
+</body>
+</html>
