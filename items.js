@@ -39,6 +39,15 @@ window.ITEMS = [
     size: "",
   },
   {
+    name: "Realm of Magic (GP08)",
+    banner: "items/Realm of Magic (GP08)/banner.png",
+    file: "",
+    link: "https://files.twizip.cc/d/CnpGavgYuTRYMA_k57q4BL6",
+    description: "",
+    added: "2026-10-20",
+    size: "",
+  },
+  {
     name: "Royalty \u0026 Legacy (EP21)",
     banner: "items/Royalty \u0026 Legacy (EP21)/banner.png",
     file: "",
